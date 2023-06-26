@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Movie Search</title>
+  </head>
+  <body>
+    <section>
+      <nav>
+        <ul id="list_1">
+          <li class="navChild">
+            <!-- <object type="image/svg+xml" data="./assets/burger-svgrepo-com.svg" id="menu"><object/> -->
+<svg width="34px" height="34px" id="burger" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 4H21" stroke="#71717A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 12H21" stroke="#71717A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 20H21" stroke="#71717A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+          </li>
+          <li class="navChild">
+            <a href="https://www.imdb.com/?ref_=nv_home"
+              ><img
+                src="./assets/IMDB_Logo_2016.svg.png"
+                alt=""
+                srcset=""
+                class="imdb"
+            /></a>
+          </li>
+          <li id="procontainer" class="navChild">
+            <img src="./assets/IMDbPro.png" id="pro" alt="" srcset="" />
+          </li>
+          <li class="navChild">
+            <input
+              type="text"
+              name="Title"
+              id="search"
+              placeholder="Search for a movie, tv show or actor...."
+            />
+            <svg viewBox="0 0 24 24" id="glass" height="34px" width="34px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                     <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C7.68629 5 5 7.68629 5 11C5 14.3137 7.68629 17 11 17C14.3137 17 17 14.3137 17 11C17 7.68629 14.3137 5 11 5ZM3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11C19 12.8487 18.3729 14.551 17.3199 15.9056L20.7071 19.2929C21.0976 19.6834 21.0976 20.3166 20.7071 20.7071C20.3166 21.0976 19.6834 21.0976 19.2929 20.7071L15.9056 17.3199C14.551 18.3729 12.8487 19 11 19C6.58172 19 3 15.4183 3 11Z" fill="grey"></path> </g></svg>
+          </li>
+          <li class="navChild" id="watch">
+            <p>My Watchlist <span id="listCount">0</span></p>
+          </li>
+          <li class="navChild" id="float">
+            <img
+              src="./assets/profile-picture.jpeg"
+              alt=""
+              srcset=""
+              id="profile"
+            />
+          </li>
+        </ul>
+      </nav>
+      <div class="container">
+        <div class="side-bar">
+          <h1>Search</h1>
+          <ul id="list_2">
+            <li class="bottom_spacing open_filter">Advanced Name Search</li>
+            <li class="bottom_spacing">Collaborations</li>
+            <li class="bottom_spacing">Topics</li>
+            <li class="bottom_spacing">Category Search</li>
+            <li class="bottom_spacing">Genre</li>
+            <li class="bottom_spacing">Keywords</li>
+          </ul>
+        </div>
+        <div class="filter">
+          <h1>Advanced Title Search</h1>
+          <div class="topContainer">
+            <label for="title" id="toptitle">Title</label>
+          <input
+            type="text"
+            name="Title"
+            class="tags fits"
+            id="title"
+            placeholder="e.g The Godfather"
+          />
+          <label for="year" class="toptitle">Year</label>
+          <select
+          name="Year"
+          class="tags fits"
+          id="year">
+           <option selected>YYYY</option>
+          </select>
+          <!-- <svg viewBox="0 0 24 24" id="date" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 10V7C20 5.89543 19.1046 5 18 5H6C4.89543 5 4 5.89543 4 7V10M20 10V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V10M20 10H4M8 3V7M16 3V7" stroke="grey" stroke-width="2" stroke-linecap="round"></path> <rect x="6" y="12" width="3" height="3" rx="0.5" fill="grey"></rect> <rect x="10.5" y="12" width="3" height="3" rx="0.5" fill="grey"></rect> <rect x="15" y="12" width="3" height="3" rx="0.5" fill="#000000"></rect> </g></svg> -->
+          </div>
+          <!-- pattern="\d{4}\s-\s\d{4}" -->
+          <div class="Container3">
+            <h4 class="checkH">Title Type</h4>
+            <ul class="checkContainer">
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="Everywhere" />
+                <label for="Everywhere">Everywhere</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="TvMovie" />
+                <label for="TvMovie">TV Movie</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="TvEpisode" />
+                <label for="TvEpisode">TV Episode</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="Mini-Series" />
+                <label for="Mini-Series">Mini-Series</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="VideoGames" />
+                <label for="VideoGames">Video Games</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="Video" />
+                <label for="Video">Video</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="FeatureFilm" />
+                <label for="FeatureFilm">Feature Film</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="TvSeries" />
+                <label for="TvSeries">TV Series</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="TvSpecial" />
+                <label for="TvSpecial">Tv Special</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="Documentary" />
+                <label for="Documentary">Documentary</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="ShortFilm" />
+                <label for="ShortFilm">Short Film</label>
+              </li>
+              <li class="typeCheck">
+                <input type="checkbox" class="checks" name="TvShort" />
+                <label for="TvShort">Tv Short</label>
+              </li>
+            </ul>
+          </div>
+          <div class="ratingContainer">
+            <h4 id="rateH">User Rating</h4>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating1"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating2"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating3"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating4"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating5"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating6"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating7"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating8"></object>
+          <object data="./assets/star-svgrepo-com.svg" type="image/svg+xml" id="rating9"></object>
+          </div>
+          <div class="certContainer">
+            <h4>Certificates</h4>
+          <ul id="certs">
+            <li id="Gcontainer">
+              <input type="checkbox" name="Certificates" class="fits" id="G" />
+          <label for="G">G</label>
+            </li>
+            <li>
+              <input type="checkbox" name="Certificates" class="fits" id="PG" />
+          <label for="PG">PG</label>
+            </li>
+            <li>
+              <input type="checkbox" name="Certificates" class="fits" id="PG-13" />
+          <label for="PG-13">PG-13</label>
+            </li>
+            <li>
+              <input type="checkbox" name="Certificates" class="fits" id="PG-13" />
+          <label for="PG-13">PG-13</label>
+            </li>
+            <li>
+              <input type="checkbox" name="Certificates" class="fits" id="PG-13" />
+          <label for="PG-13">PG-13</label>
+            </li>
+            <li>
+              <input type="checkbox" name="Certificates" class="fits" id="N" />
+          <label for="N">N</label>
+            </li>
+          <li>
+            <input type="checkbox" name="Certificates" class="fits" id="NC-17" />
+          <label for="NC-17">NC-17</label>
+          </li> 
+          </ul>
+          </div>
+          <div class="finalLabel">
+          <label for="genre" class="botTitle">Genre</label>
+          <select name="Genre" class="tags fits labelTop select" id="genre"></select>
+          <label for="countries" class="botTitle">Countries</label>
+          <select name="Countries" class="tags fits labelTop select" id="countries"></select>
+          <label for="keywords" class="botTitle">Keywords</label>
+          <select name="Keywords" class="tags fits labelBot select" id="keywords"></select>
+          <label for="companies" class="botTitle">Companies</label>
+          <select name="Companies" class="tags fits labelBot select" id="companies"></select>
+          </div>
+
+          <div class="container2">
+            <p id="details"><span id="found">0</span>Movies Found</p>
+            <p>Clear Filters</p>
+            <button id="result">Show Results</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./index.js"></script>
+  </body>
+</html>
