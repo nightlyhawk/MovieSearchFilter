@@ -120,7 +120,7 @@ input[type="checkbox"]:checked
     right: 5.5%;
 }
 
-.open_filter:hover
+#tab:hover
 {
     cursor: pointer;
     color: rgb(200, 197, 197);

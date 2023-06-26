@@ -1,15 +1,16 @@
-const search = document.querySelector("#search");
-const glassbtn = document.querySelector("#glass");
+const search = document.getElementById("search");
+const glassbtn = document.getElementById("glass");
 const fits = document.querySelectorAll(".fits");
+const count = document.getElementById('found');
 const checks = document.querySelectorAll(".checks");
-const genre = document.querySelector("#genre");
-const keywords = document.querySelector("#keywords");
-const companies = document.querySelector("#companies");
-const countries = document.querySelector("#countries");
+const genre = document.getElementById("genre");
+const keywords = document.getElementById("keywords");
+const companies = document.getElementById("companies");
+const countries = document.getElementById("countries");
 const filter = document.getElementsByClassName('filter');
-const date = document.querySelector("#year");
-const result_btn = document.querySelector("#result");
-const open = document.getElementsByClassName('open_filter');
+const date = document.getElementById("year");
+const result_btn = document.getElementById("result");
+const open = document.getElementById('tab');
 
 
 const submit = (name, input) => {
@@ -17,7 +18,7 @@ const submit = (name, input) => {
 };
 
 
-checks.onclick = function add() {
+checks.addEventListener("click", function add() {
     for(let i = 0; i < checks.length; i++){
         if(checks[i].checked = True && checks[i] === e.target){
             filters.Type.push(checks[i].name)
@@ -26,17 +27,18 @@ checks.onclick = function add() {
             filters.Type.pop(checks[i].name)
         } 
         
-    }
-};
+    };
+}
+);
 
-window.onload = function yearsPrinter() {
+function yearsPrinter() {
     let initial = 1999
     let final = 2023
     const years = []
     years.push(initial)
     if(initial>= final) {
         console.log(years)
-        years.forEach((year) => {
+        years.forEach(year => {
             let option = document.createElement('option')
             option.innerText = year
             option.value = year
@@ -47,15 +49,19 @@ window.onload = function yearsPrinter() {
     }
 };
 
+yearsPrinter();
 
-(function loop(){
+
+function loop(){
 const fits = document.querySelectorAll("fits");
-fits.forEach(fit => {
+fits.forEach( fit => {
     fit.addEventListener("change", function() {
       submit(this.name, this.value)
     });
 })
-})();
+};
+
+loop();
 
 
 
@@ -65,7 +71,7 @@ fits.forEach(fit => {
 
 
 const apiKey = "8927507f";
-const filters = {
+let filters = {
     Title: '',
     Year: null,
     Type: [],
@@ -78,7 +84,7 @@ const filters = {
 
 }
 
-fits.onchange = () => {
+fits.addEventListener("change",  () => {
 const queryString = Object.entries(filters)
 .map(([key, value]) => `${key}=${encodedURIComponent(value)}`)
 .join('&');
@@ -89,9 +95,21 @@ fetch(`http://www.omdbapi.com/?apikey=${apiKey}&${queryString}`)
 .then(data => {
    if (data.Response === 'True') {
     const movies = data.Search;
-    ShowResults(movies);
-    movies.forEach(movie => {
+    count.innerText = movies.length
+    movies.forEach( movie => {
         console.log(movie.Title);
+        filters = {
+            Title: '',
+            Year: null,
+            Type: [],
+            Rating: '',
+            Certificates: [],
+            Genre: '',
+            Countries: '',
+            Keywords: '',
+            Companies: '',
+        
+        }
     });
    } else {
     console.log('No movies found!');
@@ -102,9 +120,10 @@ fetch(`http://www.omdbapi.com/?apikey=${apiKey}&${queryString}`)
     console.log("Error:", error);
     });
 }
+)
 
   function ShowResults  (movies){
-    movies.forEach((movie) => {
+    movies.forEach(movie => {
         let div = document.createElement('div');
         div.id = "result_container"
         let img = documnet.createElement('img');
@@ -158,7 +177,7 @@ fetch(`http://www.omdbapi.com/?apikey=${apiKey}&${queryString}`)
 
 
 
-        section.appendChild(div)
+        section.appendChild(div);
         
 
     });
@@ -194,22 +213,24 @@ function addData(url, section){
 
 
 function deploy(data, section){
-    data.forEach((item) => {
+    data.forEach(item => {
         let option = document.createElement('option')
-        option.innerText = item
-    
-        section.appendChild(option)
+        option.innerText = item;
+        option.value = item;
+        section.appendChild(option);
     });
 };
 
 result_btn.onclick = () => {
     filter.style.display = 'none';
+    ShowResults(movies);
 };
 
 open.onclick = () => {
     if(filter.style.display = 'none'){
         filter.style.display = 'flex';
         open.style.border.left = '3px solid yellow';
+        document.getElementById('result_container').style.display = "none";
     } else {
         filter.style.display = 'none';
         open.style.border.left = 'none';
