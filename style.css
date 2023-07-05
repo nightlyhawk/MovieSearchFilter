@@ -40,6 +40,12 @@ ul
     width: 20%;
 }
 
+.active-tab
+{
+    border-left: 4px solid #FFCC00;
+    background-color: rgb(44, 39, 39);
+}
+
 .filter
 {
     display: flex;

@@ -7,69 +7,11 @@ const genre = document.getElementById("genre");
 const keywords = document.getElementById("keywords");
 const companies = document.getElementById("companies");
 const countries = document.getElementById("countries");
-const filter = document.getElementsByClassName('filter');
+const filter = document.getElementsByClassName('filter')[0];
 const date = document.getElementById("year");
+const res_cont = document.getElementById("result_container");
 const result_btn = document.getElementById("result");
 const open = document.getElementById('tab');
-
-
-const submit = (name, input) => {
-    filters[name] = input.value 
-};
-
-
-checks.addEventListener("click", function add() {
-    for(let i = 0; i < checks.length; i++){
-        if(checks[i].checked = True && checks[i] === e.target){
-            filters.Type.push(checks[i].name)
-        }
-        if(checks[i].checked = False){
-            filters.Type.pop(checks[i].name)
-        } 
-        
-    };
-}
-);
-
-function yearsPrinter() {
-    let initial = 1999
-    let final = 2023
-    const years = []
-    years.push(initial)
-    if(initial>= final) {
-        console.log(years)
-        years.forEach(year => {
-            let option = document.createElement('option')
-            option.innerText = year
-            option.value = year
-            date.appendChild(option)
-        },)
-    } else {
-        initial++
-    }
-};
-
-yearsPrinter();
-
-
-function loop(){
-const fits = document.querySelectorAll("fits");
-fits.forEach( fit => {
-    fit.addEventListener("change", function() {
-      submit(this.name, this.value)
-    });
-})
-};
-
-loop();
-
-
-
-
-
-
-
-
 const apiKey = "8927507f";
 let filters = {
     Title: '',
@@ -84,7 +26,53 @@ let filters = {
 
 }
 
-fits.addEventListener("change",  () => {
+function checkStatus (name){
+    for(let i = 0; i < checks.length; i++){
+        const index = filters[name].indexOf(checks[i])
+    if(checks[i].checked == false && index !== -1)
+        filters[name].splice(index, 1)
+        console.log(filters[name].indexOf(checks[i]))
+    } 
+}
+
+const submit = (name, input) => {
+    // checkStatus(name)
+    if(Array.isArray(filters[name])){
+        filters[name].push(input)
+        console.log(filters[name].indexOf(checks[i]))
+    }else {
+        filters[name] = input
+    }  
+    console.log(filters)
+    searchQuery();
+};
+
+function yearsPrinter(initial, final){
+const years = []
+for( initial; initial <= final; initial++){
+    years.push(initial)
+    } 
+    years.forEach(year => {
+        let option = document.createElement('option')
+        option.innerText = year
+        option.value = year
+        date.appendChild(option)
+    },)
+}
+yearsPrinter(1999, 2023);
+
+
+function loop(){
+fits.forEach( fit => {
+    fit.addEventListener("change", function() {
+      submit(this.name, this.value)
+    });
+})
+};
+
+loop();
+
+function searchQuery(){
 const queryString = Object.entries(filters)
 .map(([key, value]) => `${key}=${encodedURIComponent(value)}`)
 .join('&');
@@ -116,16 +104,17 @@ fetch(`http://www.omdbapi.com/?apikey=${apiKey}&${queryString}`)
    }
 })
 .catch(error => {
-
     console.log("Error:", error);
     });
 }
-)
 
   function ShowResults  (movies){
     movies.forEach(movie => {
         let div = document.createElement('div');
         div.id = "result_container"
+        div.style.display = "flex";
+        div.style.flexWrap = "wrap";
+        div.style.width = "80%";
         let img = documnet.createElement('img');
         img.src = movie.Poster;
         let h4 = document.createElement('h4');
@@ -182,36 +171,7 @@ fetch(`http://www.omdbapi.com/?apikey=${apiKey}&${queryString}`)
 
     });
   }
-//   https://www.omdbapi.com/?apikey=8927507f&type=genre/movie/list 
-
-let genre_url = "https://api.themoviedb.org/3/genre/movie/list?&api_key=bc947b785453ddc6ebb17ccafc21f33d"
-addData(genre_url, genre);
-
-let countries_url = "https://restcountries.com/v3.1/all"
-addData(countries_url, countries);
-
-
-
-
-function addData(url, section){
-  fetch(url)
-  .then(res => {
-    if(!res.ok){
-        throw Error("could not fetch data for that resource")
-    } return res.json
-}) 
-    .then(data => {
-        const store = data
-        deploy(store, section);
-    }
-   )
-   .catch(error => {
-
-    console.log("Error:", error);
-    });
-};
-
-
+//   https://www.omdbapi.com/?apikey=8927507f&type=genre/movie/list
 function deploy(data, section){
     data.forEach(item => {
         let option = document.createElement('option')
@@ -221,19 +181,43 @@ function deploy(data, section){
     });
 };
 
+function addData(url, section){
+  fetch(url)
+  .then(response => {
+     response.json()
+}) 
+    .then(data => {
+        const store = data
+        deploy(store, section);
+    }
+   )
+   .catch(error => {
+    console.log("Error:", error);
+    });
+};
+let genre_url = "https://api.themoviedb.org/3/genre/movie/list?&api_key=bc947b785453ddc6ebb17ccafc21f33d"
+addData(genre_url, genre);
+
+let countries_url = "https://restcountries.com/v3.1/all"
+addData(countries_url, countries);
+
 result_btn.onclick = () => {
     filter.style.display = 'none';
+    open.classList.remove('active-tab')
     ShowResults(movies);
 };
 
 open.onclick = () => {
     if(filter.style.display = 'none'){
         filter.style.display = 'flex';
-        open.style.border.left = '3px solid yellow';
-        document.getElementById('result_container').style.display = "none";
+        open.classList.add('active-tab')
+        if(res_cont){
+        res_cont.style.display = "none";};
     } else {
         filter.style.display = 'none';
-        open.style.border.left = 'none';
+        open.classList.remove('active-tab')
+        if(res_cont){
+            res_cont.style.display = "flex";};
     }
 };
 
